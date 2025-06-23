@@ -15,6 +15,7 @@ jobs:
     steps: 
       # 여기까지도 고정 
       - uses: actions/checkout@v3
+
       # name들은 자유롭게! 구분용임!
       - name: Set up Go
         uses: actions/setup-go@v3
