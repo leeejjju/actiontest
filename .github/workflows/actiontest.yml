@@ -30,10 +30,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: build and release to Dockerhub 
         # 도커허브에 널을거니까 도커허브의 이름을 써야 함 
-          env: 
-            NAME: leeejjju
-            REPO: actiontest 
-          run: 
-            docker build -t $REPO
-            docker tag $REPO:latest $NAME/$REPO:latest 
-            docker push $NAME/$REPO:latest 
+        env: 
+          NAME: leeejjju
+          REPO: actiontest 
+        run: 
+          docker build -t $REPO
+          docker tag $REPO:latest $NAME/$REPO:latest 
+          docker push $NAME/$REPO:latest 
