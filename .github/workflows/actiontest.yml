@@ -9,13 +9,9 @@ on:
 # jobs 
 jobs: 
   build:
-    # 런타임이 돌아갈 OS. 이건 고정. 
     runs-on: ubuntu:latest 
-    # 여기다 작업을 쓰면 됨 steps: 
-      # 여기까지도 고정 
       - uses: actions/checkout@v3
 
-      # name들은 자유롭게! 구분용임!
       - name: Set up Go
         uses: actions/setup-go@v3
         with: 
@@ -24,7 +20,6 @@ jobs:
       - name: Build
         run: go build -v ./... 
 
-      # docker, aws에 로그인 
       - name: DockerHub Login 
         uses: docker/login-action@v1
         with:
@@ -32,7 +27,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: build and release to Dockerhub 
-        # 도커허브에 널을거니까 도커허브의 이름을 써야 함 
         env: 
           NAME: leeejjju
           REPO: actiontest 
