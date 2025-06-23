@@ -6,31 +6,34 @@ on:
   push:
     branches: ["main"]
 
-# jobs 
-jobs: 
+# jobs
+jobs:
   build:
-    runs-on: ubuntu:latest 
+    runs-on: ubuntu-latest
+
+    steps:
       - uses: actions/checkout@v3
 
       - name: Set up Go
         uses: actions/setup-go@v3
-        with: 
+        with:
           go-version: 1.15
 
       - name: Build
-        run: go build -v ./... 
+        run: go build -v ./...
 
-      - name: DockerHub Login 
+      - name: DockerHub Login
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: build and release to Dockerhub 
-        env: 
+      - name: Build and Release to DockerHub
+        env:
           NAME: leeejjju
-          REPO: actiontest 
-        run: 
-          docker build -t $REPO
-          docker tag $REPO:latest $NAME/$REPO:latest 
-          docker push $NAME/$REPO:latest 
+          REPO: actiontest
+        run: |
+          docker build -t $REPO .
+          docker tag $REPO:latest $NAME/$REPO:latest
+          docker push $NAME/$REPO:latest
+
