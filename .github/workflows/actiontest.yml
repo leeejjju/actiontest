@@ -15,23 +15,19 @@ jobs:
     steps: 
       # 여기까지도 고정 
       - uses: actions/checkout@v3
-
       # name들은 자유롭게! 구분용임!
       - name: Set up Go
         uses: actions/setup-go@v3
         with: 
           go-version: 1.15
-
       - name: Build
         run: go build -v ./... 
-
       # docker, aws에 로그인 
       - name: DockerHub Login 
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: build and release to Dockerhub 
         # 도커허브에 널을거니까 도커허브의 이름을 써야 함 
           env: 
@@ -41,4 +37,3 @@ jobs:
             docker build -t $REPO
             docker tag $REPO:latest $NAME/$REPO:latest 
             docker push $NAME/$REPO:latest 
-
